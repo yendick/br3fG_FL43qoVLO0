@@ -84,7 +84,7 @@
     <div id="timer">
 
         <div id="daysbox" class="days">
-            <div id="days" class="numbers "> </div>días
+            <div id="days" class="numbers "> </div><span id="daystxt">días</span>
         </div>
         <div id="hoursbox" class="hours">
             <div id="hours" class="numbers"> </div>horas
@@ -107,14 +107,15 @@
             if ((color == null || color == "") && (bcolor == null || bcolor == "")) return;
 
             var stl = document.getElementById(id).style;
-            if (stl == null) return;
-
-            if (bcolor != null && bcolor != "") {
+            var stlb = document.getElementById(id + "box").style;
+            var stlt = document.getElementById(id + "txt").style;
+            
+            if (bcolor != null && bcolor != "" && stlb != null) {
                 console.log(stl.backgroundColor);
                 console.log(bcolor);
-                stl.backgroundColor = "#" + bcolor;
+                stlb.backgroundColor = "#" + bcolor;
             }
-            if (color != null && color != "") {
+            if (color != null && color != "" && stl != null) {
                 console.log(stl.color);
                 console.log(color);
                 stl.color = "#" + color;
@@ -131,10 +132,10 @@
     var myDate = new Date('2027-08-29 00:00:00');
 
     const qDate = params.get('date');
-    changeColor(params.get('bcd'), params.get('cd'), 'daysbox');
-    changeColor(params.get('bch'), params.get('ch'), 'hours');
-    changeColor(params.get('bcm'), params.get('cm'), 'minutes');
-    changeColor(params.get('bcs'), params.get('cs'), 'seconds');
+    changeColor(params.get('bcd'), params.get('cd'), params.get('tcd'), 'days');
+    changeColor(params.get('bch'), params.get('ch'), params.get('tch'), 'hours');
+    changeColor(params.get('bcm'), params.get('cm'), params.get('tcm'), 'minutes');
+    changeColor(params.get('bcs'), params.get('cs'), params.get('tcs'), 'seconds');
     
     if (qDate != null) {
         myDate = new Date(qDate);
