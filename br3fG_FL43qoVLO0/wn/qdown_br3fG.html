@@ -110,9 +110,13 @@
             if (stl == null) return;
 
             if (bcolor != null && bcolor != "") {
+                console.log(stl.backgroundColor);
+                console.log(bcolor);
                 stl.backgroundColor = bcolor;
             }
             if (color != null && color != "") {
+                console.log(stl.color);
+                console.log(color);
                 stl.color = color;
             }
         }
@@ -134,10 +138,6 @@
     
     if (qDate != null) {
         myDate = new Date(qDate);
-    }
-
-    if (qColorD != null) {
-        qColorD.substr(0, 1)
     }
 
     //console.log(myDate);
