@@ -102,23 +102,27 @@
 </body>
 <script>
 
-    function changeColor(bcolor, color, id) {
+    function changeColor(bcolor, color, tcolor, id) {
         try {
-            if ((color == null || color == "") && (bcolor == null || bcolor == "")) return;
+            if ((color == null || color == "")
+                && (bcolor == null || bcolor == "")
+                && (tcolor == null || tcolor == "")) return;
 
             var stl = document.getElementById(id).style;
             var stlb = document.getElementById(id + "box").style;
             var stlt = document.getElementById(id + "txt").style;
             
             if (bcolor != null && bcolor != "" && stlb != null) {
-                console.log(stl.backgroundColor);
                 console.log(bcolor);
                 stlb.backgroundColor = "#" + bcolor;
             }
             if (color != null && color != "" && stl != null) {
-                console.log(stl.color);
                 console.log(color);
                 stl.color = "#" + color;
+            }
+            if (tcolor != null && tcolor != "" && stlt != null) {
+                console.log(tcolor);
+                stlt.color = "#" + tcolor;
             }
         }
         catch (e) { }
