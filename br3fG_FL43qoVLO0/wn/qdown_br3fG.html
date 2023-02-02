@@ -136,6 +136,12 @@
     var myDate = new Date('2027-08-29 00:00:00');
 
     const qDate = params.get('date');
+
+    changeColor(params.get('bc'), params.get('c'), params.get('tc'), 'days');
+    changeColor(params.get('bc'), params.get('c'), params.get('tc'), 'hours');
+    changeColor(params.get('bc'), params.get('c'), params.get('tc'), 'minutes');
+    changeColor(params.get('bc'), params.get('c'), params.get('tc'), 'seconds');
+
     changeColor(params.get('bcd'), params.get('cd'), params.get('tcd'), 'days');
     changeColor(params.get('bch'), params.get('ch'), params.get('tch'), 'hours');
     changeColor(params.get('bcm'), params.get('cm'), params.get('tcm'), 'minutes');
@@ -148,6 +154,10 @@
     //console.log(myDate);
 
     var changedWidth = false;
+    var changedColorD = false;
+    var changedColorH = false;
+    var changedColorM = false;
+    var changedColorS = false;
 
     // countdown
     let timer = setInterval(function() {
@@ -181,6 +191,26 @@
             if (days >= 1000 && !changedWidth) {
                 document.getElementById("daysbox").style.width = "120px";
                 changedWidth = true;
+            }
+
+            if (days == 0 && !changedColorD) {
+                changedColorD = true;
+                changeColor(params.get('zbc'), params.get('zc'), params.get('ztc'), 'days');
+            }
+
+            if (days == 0 && hours == 0 && !changedColorH) {
+                changedColorH = true;
+                changeColor(params.get('zbc'), params.get('zc'), params.get('ztc'), 'hours');
+            }
+
+            if (days == 0 && hours == 0 && minutes == 0 && !changedColorM) {
+                changedColorM = true;
+                changeColor(params.get('zbc'), params.get('zc'), params.get('ztc'), 'minutes');
+            }
+
+            if (days == 0 && hours == 0 && minutes == 0 && seconds == 0 && !changedColorS) {
+                changedColorS = true;
+                changeColor(params.get('zbc'), params.get('zc'), params.get('ztc'), 'seconds');
             }
         }
         catch (e) { }
