@@ -86,13 +86,13 @@
         <div id="daysbox" class="days">
             <div id="days" class="numbers "> </div>días
         </div>
-        <div class="hours">
+        <div id="hoursbox" class="hours">
             <div id="hours" class="numbers"> </div>horas
         </div>
-        <div class="minutes">
+        <div id="minutesbox" class="minutes">
             <div id="minutes" class="numbers"> </div>minutos
         </div>
-        <div class="seconds">
+        <div id="secondsbox" class="seconds">
             <div id="seconds" class="numbers"> </div>segundos
         </div>
     </div>
@@ -112,12 +112,12 @@
             if (bcolor != null && bcolor != "") {
                 console.log(stl.backgroundColor);
                 console.log(bcolor);
-                stl.backgroundColor = bcolor;
+                stl.backgroundColor = "#" + bcolor;
             }
             if (color != null && color != "") {
                 console.log(stl.color);
                 console.log(color);
-                stl.color = color;
+                stl.color = "#" + color;
             }
         }
         catch (e) { }
@@ -131,7 +131,7 @@
     var myDate = new Date('2027-08-29 00:00:00');
 
     const qDate = params.get('date');
-    changeColor(params.get('bcd'), params.get('cd'), 'days');
+    changeColor(params.get('bcd'), params.get('cd'), 'daysbox');
     changeColor(params.get('bch'), params.get('ch'), 'hours');
     changeColor(params.get('bcm'), params.get('cm'), 'minutes');
     changeColor(params.get('bcs'), params.get('cs'), 'seconds');
