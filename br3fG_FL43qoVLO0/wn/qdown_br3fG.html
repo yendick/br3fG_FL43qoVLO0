@@ -102,6 +102,23 @@
 </body>
 <script>
 
+    function changeColor(bcolor, color, id) {
+        try {
+            if ((color == null || color == "") && (bcolor == null || bcolor == "")) return;
+
+            var stl = document.getElementById(id).style;
+            if (stl == null) return;
+
+            if (bcolor != null && bcolor != "") {
+                stl.backgroundColor = bcolor;
+            }
+            if (color != null && color != "") {
+                stl.color = color;
+            }
+        }
+        catch (e) { }
+    }
+
     // recuperamos el querystring
     const querystring = window.location.search
     const params = new URLSearchParams(querystring)
@@ -110,46 +127,58 @@
     var myDate = new Date('2027-08-29 00:00:00');
 
     const qDate = params.get('date');
-    console.log(qDate);
+    changeColor(params.get('bcd'), params.get('cd'), 'days');
+    changeColor(params.get('bch'), params.get('ch'), 'hours');
+    changeColor(params.get('bcm'), params.get('cm'), 'minutes');
+    changeColor(params.get('bcs'), params.get('cs'), 'seconds');
+    
     if (qDate != null) {
         myDate = new Date(qDate);
     }
 
-    console.log(myDate);
+    if (qColorD != null) {
+        qColorD.substr(0, 1)
+    }
+
+    //console.log(myDate);
+
+    var changedWidth = false;
 
     // countdown
     let timer = setInterval(function() {
 
-        // get today's date
-        const today = new Date().getTime();
+        try {
+            // get today's date
+            const today = new Date().getTime();
 
-        // get the difference
-        const diff = myDate - today;
+            // get the difference
+            const diff = myDate - today;
 
-        // math
-        let days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            // math
+            let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-        // display
-        if (days < 0 || hours < 0 || minutes < 0 || seconds < 0)
-        {
-            days = 0;
-            hours = 0;
-            minutes = 0;
-            seconds = 0;
-            console.log("0 días");
+            // display
+            if (days < 0 || hours < 0 || minutes < 0 || seconds < 0) {
+                days = 0;
+                hours = 0;
+                minutes = 0;
+                seconds = 0;
+                console.log("0 días");
+            }
+            document.getElementById("days").innerHTML = days
+            document.getElementById("hours").innerHTML = hours
+            document.getElementById("minutes").innerHTML = minutes
+            document.getElementById("seconds").innerHTML = seconds
+
+            if (days >= 1000 && !changedWidth) {
+                document.getElementById("daysbox").style.width = "120px";
+                changedWidth = true;
+            }
         }
-        document.getElementById("days").innerHTML=days
-        document.getElementById("hours").innerHTML=hours
-        document.getElementById("minutes").innerHTML=minutes
-        document.getElementById("seconds").innerHTML = seconds
-
-        if (days >= 1000)
-        {
-            document.getElementById("daysbox").style.width = "120px";
-        }
+        catch (e) { }
 
     }, 1);
 
