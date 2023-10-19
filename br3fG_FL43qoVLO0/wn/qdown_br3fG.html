@@ -20,6 +20,10 @@
             letter-spacing: 5px;
         }
 
+        .timetext {
+            font-size: 1em;
+        }
+
         .days, .hours, .minutes, .seconds {
             display: inline-block;
             padding: 20px;
@@ -84,16 +88,16 @@
     <div id="timer">
 
         <div id="daysbox" class="days">
-            <div id="days" class="numbers "> </div><span id="daystxt">días</span>
+            <div id="days" class="numbers "> </div><span class="timetext" id="daystxt">días</span>
         </div>
         <div id="hoursbox" class="hours">
-            <div id="hours" class="numbers"> </div><span id="hourstxt">horas</span>
+            <div id="hours" class="numbers"> </div><span class="timetext" id="hourstxt">horas</span>
         </div>
         <div id="minutesbox" class="minutes">
-            <div id="minutes" class="numbers"> </div><span id="minutestxt">minutos</span>
+            <div id="minutes" class="numbers"> </div><span class="timetext" id="minutestxt">minutos</span>
         </div>
         <div id="secondsbox" class="seconds">
-            <div id="seconds" class="numbers"> </div><span id="secondstxt">segundos</span>
+            <div id="seconds" class="numbers"> </div><span class="timetext" id="secondstxt">segundos</span>
         </div>
     </div>
 
@@ -101,6 +105,28 @@
 
 </body>
 <script>
+
+    console.log("v1.10");
+    function doScale(value) {
+        var txtScale = value + "em";
+        var numScale = (value * 4) + "em";
+        var widScale = (value * 100) + "px";
+
+        document.getElementById("daystxt").style.fontSize = txtScale;
+        document.getElementById("hourstxt").style.fontSize = txtScale;
+        document.getElementById("minutestxt").style.fontSize = txtScale;
+        document.getElementById("secondstxt").style.fontSize = txtScale;
+
+        document.getElementById("days").style.fontSize = numScale;
+        document.getElementById("hours").style.fontSize = numScale;
+        document.getElementById("minutes").style.fontSize = numScale;
+        document.getElementById("seconds").style.fontSize = numScale;
+
+        document.getElementById("daysbox").style.widows = widScale;
+        document.getElementById("hoursbox").style.widows = widScale;
+        document.getElementById("minutesbox").style.widows = widScale;
+        document.getElementById("secondsbox").style.widows = widScale;
+    }
 
     function changeColor(bcolor, color, tcolor, id) {
         try {
@@ -150,6 +176,9 @@
     if (qDate != null) {
         myDate = new Date(qDate);
     }
+
+    const pScale = 0.75;
+    doScale(pScale);
 
     //console.log(myDate);
 
