@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:900">
+    <title>Document</title>
+    <style>
+
+        body {
+            background-color: white;
+        }
+
+        #timer {
+            color: #eeeeee;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: 'Lato', sans-serif;
+            font-size: .7em;
+            letter-spacing: 5px;
+        }
+
+        .timetext {
+            font-size: 1em;
+        }
+
+        .days, .hours, .minutes, .seconds {
+            display: inline-block;
+            padding: 20px;
+            width: 100px;
+            border-radius: 5px;
+        }
+
+        .days {
+            background: #EF2F3C;
+        }
+
+        .hours {
+            background: #eeeeee;
+            color: #183059;
+        }
+
+        .minutes {
+            background: #276FBF;
+        }
+
+        .seconds {
+            background: #F0A202;
+        }
+
+        .numbers {
+            font-family: 'Montserrat', sans-serif;
+            color: #183059;
+            font-size: 4em;
+            text-align: center;
+        }
+
+        .white {
+            position: absolute;
+            background: #eeeeee;
+            height: 85px;
+            width: 75px;
+            left: 30%;
+            top: 2%;
+        }
+
+        .red {
+            position: absolute;
+            background: #EF2F3C;
+            left: 18%;
+            top: 9%;
+            height: 65px;
+            width: 70px;
+        }
+
+        .blue {
+            position: absolute;
+            background: #276FBF;
+            height: 80px;
+            width: 80px;
+            left: 60%;
+            top: 5%;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="timer">
+
+        <div id="daysbox" class="days">
+            <div id="days" class="numbers "> </div><span class="timetext" id="daystxt">días</span>
+        </div>
+        <div id="hoursbox" class="hours">
+            <div id="hours" class="numbers"> </div><span class="timetext" id="hourstxt">horas</span>
+        </div>
+        <div id="minutesbox" class="minutes">
+            <div id="minutes" class="numbers"> </div><span class="timetext" id="minutestxt">minutos</span>
+        </div>
+        <div id="secondsbox" class="seconds">
+            <div id="seconds" class="numbers"> </div><span class="timetext" id="secondstxt">segundos</span>
+        </div>
+    </div>
+
+    </div>
+
+</body>
+<script>
+
+    console.log("v1.10");
+    function doScale(value) {
+        var txtScale = value + "em";
+        var numScale = (value * 4) + "em";
+        var widScale = (value * 100) + "px";
+
+        document.getElementById("daystxt").style.fontSize = txtScale;
+        document.getElementById("hourstxt").style.fontSize = txtScale;
+        document.getElementById("minutestxt").style.fontSize = txtScale;
+        document.getElementById("secondstxt").style.fontSize = txtScale;
+
+        document.getElementById("days").style.fontSize = numScale;
+        document.getElementById("hours").style.fontSize = numScale;
+        document.getElementById("minutes").style.fontSize = numScale;
+        document.getElementById("seconds").style.fontSize = numScale;
+
+        document.getElementById("daysbox").style.widows = widScale;
+        document.getElementById("hoursbox").style.widows = widScale;
+        document.getElementById("minutesbox").style.widows = widScale;
+        document.getElementById("secondsbox").style.widows = widScale;
+    }
+
+    function changeColor(bcolor, color, tcolor, id) {
+        try {
+            if ((color == null || color == "")
+                && (bcolor == null || bcolor == "")
+                && (tcolor == null || tcolor == "")) return;
+
+            var stl = document.getElementById(id).style;
+            var stlb = document.getElementById(id + "box").style;
+            var stlt = document.getElementById(id + "txt").style;
+            
+            if (bcolor != null && bcolor != "" && stlb != null) {
+                console.log(bcolor);
+                stlb.backgroundColor = "#" + bcolor;
+            }
+            if (color != null && color != "" && stl != null) {
+                console.log(color);
+                stl.color = "#" + color;
+            }
+            if (tcolor != null && tcolor != "" && stlt != null) {
+                console.log(tcolor);
+                stlt.color = "#" + tcolor;
+            }
+        }
+        catch (e) { }
+    }
+
+    // recuperamos el querystring
+    const querystring = window.location.search
+    const params = new URLSearchParams(querystring)
+
+    const year = new Date().getFullYear();
+    var myDate = new Date('2027-08-29 00:00:00');
+
+    const qDate = params.get('date');
+
+    changeColor(params.get('bc'), params.get('c'), params.get('tc'), 'days');
+    changeColor(params.get('bc'), params.get('c'), params.get('tc'), 'hours');
+    changeColor(params.get('bc'), params.get('c'), params.get('tc'), 'minutes');
+    changeColor(params.get('bc'), params.get('c'), params.get('tc'), 'seconds');
+
+    changeColor(params.get('bcd'), params.get('cd'), params.get('tcd'), 'days');
+    changeColor(params.get('bch'), params.get('ch'), params.get('tch'), 'hours');
+    changeColor(params.get('bcm'), params.get('cm'), params.get('tcm'), 'minutes');
+    changeColor(params.get('bcs'), params.get('cs'), params.get('tcs'), 'seconds');
+    
+    if (qDate != null) {
+        myDate = new Date(qDate);
+    }
+
+    const pScale = 0.75;
+    doScale(pScale);
+
+    //console.log(myDate);
+
+    var changedWidth = false;
+    var changedColorD = false;
+    var changedColorH = false;
+    var changedColorM = false;
+    var changedColorS = false;
+
+    // countdown
+    let timer = setInterval(function() {
+
+        try {
+            // get today's date
+            const today = new Date().getTime();
+
+            // get the difference
+            const diff = myDate - today;
+
+            // math
+            let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            // display
+            if (days < 0 || hours < 0 || minutes < 0 || seconds < 0) {
+                days = 0;
+                hours = 0;
+                minutes = 0;
+                seconds = 0;
+                console.log("0 días");
+            }
+            document.getElementById("days").innerHTML = days
+            document.getElementById("hours").innerHTML = hours
+            document.getElementById("minutes").innerHTML = minutes
+            document.getElementById("seconds").innerHTML = seconds
+
+            if (days >= 1000 && !changedWidth) {
+                document.getElementById("daysbox").style.width = "120px";
+                changedWidth = true;
+            }
+
+            if (days == 0 && !changedColorD) {
+                changedColorD = true;
+                changeColor(params.get('zbc'), params.get('zc'), params.get('ztc'), 'days');
+            }
+
+            if (days == 0 && hours == 0 && !changedColorH) {
+                changedColorH = true;
+                changeColor(params.get('zbc'), params.get('zc'), params.get('ztc'), 'hours');
+            }
+
+            if (days == 0 && hours == 0 && minutes == 0 && !changedColorM) {
+                changedColorM = true;
+                changeColor(params.get('zbc'), params.get('zc'), params.get('ztc'), 'minutes');
+            }
+
+            if (days == 0 && hours == 0 && minutes == 0 && seconds == 0 && !changedColorS) {
+                changedColorS = true;
+                changeColor(params.get('zbc'), params.get('zc'), params.get('ztc'), 'seconds');
+            }
+        }
+        catch (e) { }
+
+    }, 1);
+
+</script>
+</html>
